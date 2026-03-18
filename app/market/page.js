@@ -1,4 +1,4 @@
-import { getAllCityStats, getLatestStatDate } from '@/lib/supabase'
+import { getAllCityStats, getLatestStatDate, formatStatDate } from '@/lib/supabase'
 
 export const revalidate = 3600
 
@@ -8,13 +8,14 @@ export const metadata = {
 }
 
 export default async function MarketPage() {
-  const [allStats, latestDate] = await Promise.all([
+  const [allStats, latestDateRaw] = await Promise.all([
     getAllCityStats(24),
     getLatestStatDate(),
   ])
+  const latestDate = formatStatDate(latestDateRaw)
 
   // Get latest snapshot for all cities
-  const latest = allStats.filter(r => r.stat_date === latestDate)
+  const latest = allStats.filter(r => r.stat_date === latestDateRaw)
 
   // Get all distinct cities sorted by existing transaction count
   const cities = [...new Set(latest.map(r => r.district))]
