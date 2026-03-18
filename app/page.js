@@ -1,4 +1,4 @@
-import { getLatestCityStats, getPriceTrend, getTotalTransactions } from '@/lib/supabase'
+import { getLatestCityStats, getPriceTrend, getTotalTransactions, formatStatDate } from '@/lib/supabase'
 import CityCard from '@/components/CityCard'
 import PriceTrendChart from '@/components/PriceTrendChart'
 
@@ -13,7 +13,8 @@ export default async function HomePage() {
     getTotalTransactions(),
   ])
 
-  const latestDate = cityStats?.[0]?.stat_date ?? '—'
+  const latestDateRaw = cityStats?.[0]?.stat_date ?? '—'
+  const latestDate = formatStatDate(latestDateRaw)
 
   // Group city stats by city
   const byCity = {}
@@ -37,7 +38,7 @@ export default async function HomePage() {
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-brand-500/20 border border-brand-500/30 text-brand-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block"></span>
-            資料更新至 {latestDate}
+            📅 資料更新至 {latestDate}
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
             台灣房市<span className="text-brand-400">即時行情</span>
@@ -50,7 +51,7 @@ export default async function HomePage() {
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
               { label: '累積成交筆數', value: (totalTx ?? 0).toLocaleString(), unit: '筆' },
-              { label: '涵擋縣市', value: '22', unit: '個' },
+              { label: '涵蓋縣市', value: '22', unit: '個' },
               { label: '本期六都成屋', value: totalExisting.toLocaleString(), unit: '筆' },
               { label: '本期六都預售', value: totalPresale.toLocaleString(), unit: '筆' },
             ].map(s => (
@@ -82,6 +83,7 @@ export default async function HomePage() {
               city={city}
               existing={byCity[city]?.existing}
               presale={byCity[city]?.presale}
+              statDate={latestDate}
             />
           ))}
         </div>
