@@ -24,6 +24,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
             <Link href="/" className="hover:text-brand-600 transition-colors">市場總覽</Link>
             <Link href="/market" className="hover:text-brand-600 transition-colors">各縣市行情</Link>
+            <Link href="/search" className="hover:text-brand-600 transition-colors">🔍 個案搜尋</Link>
             <Link href="/blog" className="hover:text-brand-600 transition-colors">房市分析</Link>
           </nav>
 
@@ -48,6 +49,7 @@ export default function Header() {
         <div className="md:hidden border-t border-slate-100 bg-white px-4 pb-4 pt-2 flex flex-col gap-3 text-sm font-medium text-slate-700">
           <Link href="/" onClick={() => setOpen(false)}>市場總覽</Link>
           <Link href="/market" onClick={() => setOpen(false)}>各縣市行情</Link>
+          <Link href="/search" onClick={() => setOpen(false)}>🔍 個案搜尋</Link>
           <Link href="/blog" onClick={() => setOpen(false)}>房市分析</Link>
         </div>
       )}
