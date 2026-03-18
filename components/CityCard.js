@@ -1,17 +1,24 @@
-export default function CityCard({ city, existing, presale }) {
-  const yoy = existing ?.yoy_change_pct
+export default function CityCard({ city, existing, presale, statDate }) {
+  const yoy = existing?.yoy_change_pct
   const isUp = yoy >= 0
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-1">
         <h3 className="font-bold text-slate-800 text-lg">{city}</h3>
         {yoy != null && (
-          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${isUp ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>
+          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+            isUp
+              ? 'bg-red-50 text-red-600'
+              : 'bg-green-50 text-green-600'
+          }`}>
             {isUp ? '▲' : '▼'} {Math.abs(yoy).toFixed(1)}% YoY
           </span>
         )}
       </div>
+      {statDate && (
+        <p className="text-xs text-slate-400 mb-3">資料期間：{statDate}</p>
+      )}
 
       <div className="grid grid-cols-2 gap-3">
         {existing && (
