@@ -10,9 +10,9 @@ export const metadata = {
 
 export default async function BlogPage() {
   const { data: posts } = await supabase
-    .from('posts')
-    .select('id, title, slug, excerpt, published_at, created_at')
-    .eq('is_published', true)
+    .from('reports')
+    .select('id, title, slug, summary, published_at, created_at, city')
+    .eq('published', true)
     .order('published_at', { ascending: false })
     .limit(20)
 
@@ -32,8 +32,11 @@ export default async function BlogPage() {
                   {post.title}
                 </h2>
               </Link>
-              {post.excerpt && (
-                <p className="text-slate-500 text-sm leading-relaxed mb-3">{post.excerpt}</p>
+              {post.city && (
+                <span className="inline-block text-xs bg-sky-50 text-sky-600 px-2 py-0.5 rounded-full mb-2">{post.city}</span>
+              )}
+              {post.summary && (
+                <p className="text-slate-500 text-sm leading-relaxed mb-3">{post.summary}</p>
               )}
               <time className="text-xs text-slate-400">
                 {new Date(post.published_at ?? post.created_at).toLocaleDateString('zh-TW', {
