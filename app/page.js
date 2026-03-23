@@ -2,7 +2,7 @@ import { getLatestCityStats, getPriceTrend, getTotalTransactions, formatStatDate
 import CityCard from '@/components/CityCard'
 import PriceTrendChart from '@/components/PriceTrendChart'
 
-export const revalidate = 3600 // Re-fetch every hour
+export const dynamic = 'force-dynamic'
 
 const SIX_CITIES = ['臺北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市']
 

@@ -1,6 +1,6 @@
 import { getAllCityStats, getLatestStatDate, formatStatDate } from '@/lib/supabase'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: '各縣市行情 | PropIQ',
